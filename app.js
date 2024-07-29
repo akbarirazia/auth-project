@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const bodyParser = require("body-parser")
 const dotenv = require("dotenv")
 const { createUserTable } = require("./models/User")
@@ -9,6 +10,11 @@ dotenv.config()
 
 const app = express()
 app.use(bodyParser.json())
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+)
 
 app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
